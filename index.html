@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nishant Rajora | AI & Data Engineering</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- CANVAS GRID BACKGROUND -->
+    <canvas id="grid-canvas"></canvas>
+
+    <!-- AMBIENT GLOWS -->
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="glow glow-c"></div>
+
+    <!-- CURSOR DOT -->
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <span class="logo-bracket">[</span>NR<span class="logo-bracket">]</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            <span class="status-text">Available for Opportunities</span>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+        <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+    </div>
+
+    <!-- ═══════════════════════ HERO ═══════════════════════ -->
+    <section class="hero" id="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-left reveal">
+
+                <div class="eyebrow">
+                    <span class="eyebrow-line"></span>
+                    <span>AI · Data Science · Systems Engineering</span>
+                </div>
+
+                <h1 class="hero-name">
+                    Nishant<br /><span class="accent-name">Rajora</span>
+                </h1>
+
+                <p class="hero-tagline">
+                    Building Intelligent Systems Through<br />
+                    Machine Learning, Analytics &amp; Engineering
+                </p>
+
+                <p class="hero-desc">
+                    Data Science undergraduate focused on AI systems,
+                    predictive analytics, business intelligence,
+                    explainable machine learning and scalable engineering solutions.
+                </p>
+
+                <div class="hero-cta">
+                    <a href="#projects" class="btn-primary">
+                        <span>Explore Projects</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn-ghost">Contact Me</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-num" data-target="7">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">Major Projects</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-num" data-target="4">0</span>
+                        <span class="stat-label">Domains</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <span class="stat-text">ML + BI</span>
+                        <span class="stat-label">Engineering Focus</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="hero-right reveal reveal-delay">
+
+
+                <div class="profile-frame">
+                    <div class="frame-corner fc-tl"></div>
+                    <div class="frame-corner fc-tr"></div>
+                    <div class="frame-corner fc-bl"></div>
+                    <div class="frame-corner fc-br"></div>
+
+                    <!-- Profile Photo -->
+
+                </div>
+
+                <!-- Floating tags -->
+                <div class="float-tag float-tag-1">
+                    <span class="ft-dot"></span>XGBoost · SHAP
+                </div>
+                <div class="float-tag float-tag-2">
+                    <span class="ft-dot ft-cyan"></span>Tableau · Power BI
+                </div>
+                <div class="float-tag float-tag-3">
+                    <span class="ft-dot ft-green"></span>Docker · FastAPI
+                </div>
+
+                <!-- Terminal card -->
+                <div class="terminal-card">
+                    <div class="tc-header">
+                        <div class="tc-dots">
+                            <span class="tcd red"></span>
+                            <span class="tcd yellow"></span>
+                            <span class="tcd green"></span>
+                        </div>
+                        <span class="tc-title">nishant@portfolio ~</span>
+                    </div>
+                    <div class="tc-body" id="terminalBody"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="hero-scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+
+    </section>
+
+    <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+    <section class="section" id="about">
+        <div class="section-header reveal">
+            <span class="section-label">// ABOUT</span>
+            <h2 class="section-title">Who I Am</h2>
+        </div>
+
+        <div class="about-grid reveal">
+            <div class="about-text">
+                <p>
+                    I am a <strong>Data Science undergraduate</strong> passionate about building
+                    intelligent systems that combine machine learning, analytics,
+                    engineering, and research-driven problem solving.
+                </p>
+                <p>
+                    My work spans <em>AI forecasting systems</em>, explainable machine learning,
+                    cybersecurity analytics, business intelligence dashboards,
+                    and scalable local engineering tools.
+                </p>
+                <div class="about-highlights">
+                    <div class="highlight-chip">📍 Gurugram, Haryana</div>
+                    <div class="highlight-chip">🎓 B.Tech CSE Specialization in Data Science</div>
+                    <div class="highlight-chip">🔬 Research-Driven</div>
+                    <div class="highlight-chip">🚀 Open to Internships</div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="radar-rings">
+                    <div class="ring r1"></div>
+                    <div class="ring r2"></div>
+                    <div class="ring r3"></div>
+                    <div class="radar-dot rd1">ML</div>
+                    <div class="radar-dot rd2">BI</div>
+                    <div class="radar-dot rd3">Sec</div>
+                    <div class="radar-dot rd4">Eng</div>
+                    <div class="radar-center"></div>
+                </div>
+                <p class="radar-label">Domain Coverage</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ PROJECTS ═══════════════════════ -->
+    <section class="section" id="projects">
+        <div class="section-header reveal">
+            <span class="section-label">// FEATURED WORK</span>
+            <h2 class="section-title">Projects &amp; Research</h2>
+        </div>
+
+        <div class="projects-grid">
+
+            <div class="project-card reveal" data-index="0">
+                <div class="card-glow"></div>
+                <div class="card-number">01</div>
+                <div class="project-tag">AI Research</div>
+                <h3><a href="https://github.com/NishantRajora/machine-learning-crop-yield-drivers" target="_blank"
+                        rel="noopener noreferrer">Machine Learning Crop Yield Drivers</a></h3>
+                <p>Explainable AI system using XGBoost, SHAP analysis and feature engineering for agricultural
+                    intelligence.</p>
+                <div class="tech-stack">
+                    <span>Python</span><span>XGBoost</span><span>SHAP</span><span>Scikit-Learn</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="1">
+                <div class="card-glow"></div>
+                <div class="card-number">02</div>
+                <div class="project-tag">Environmental Intelligence</div>
+                <h3><a href="https://github.com/NishantRajora/AQI-prediction-india-ml" target="_blank"
+                        rel="noopener noreferrer">AQI Prediction India (ML)</a></h3>
+                <p>Time-series forecasting system using Random Forest, XGBoost and Streamlit deployment for air quality
+                    prediction.</p>
+                <div class="tech-stack">
+                    <span>ML</span><span>Docker</span><span>Streamlit</span><span>Forecasting</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="2">
+                <div class="card-glow"></div>
+                <div class="card-number">03</div>
+                <div class="project-tag">Systems Engineering</div>
+                <h3><a href="https://github.com/NishantRajora/FileWave-File-Server" target="_blank"
+                        rel="noopener noreferrer">FileWave Pro</a></h3>
+                <p>Lightweight LAN-based local file server with drag-drop uploads, live previews and professional dark
+                    UI.</p>
+                <div class="tech-stack">
+                    <span>Python</span><span>Tkinter</span><span>HTTP Server</span><span>Vanilla JS</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="3">
+                <div class="card-glow"></div>
+                <div class="card-number">04</div>
+                <div class="project-tag">Business Intelligence</div>
+                <h3><a href="https://github.com/NishantRajora/Amazon-Sales-2025-Dashboard-Tableau-" target="_blank"
+                        rel="noopener noreferrer">Amazon Sales 2025 Dashboard</a></h3>
+                <p>Executive analytics dashboard designed in Tableau for KPI tracking, revenue insights and customer
+                    behavior analysis.</p>
+                <div class="tech-stack">
+                    <span>Tableau</span><span>BI</span><span>KPI</span><span>Analytics</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="4">
+                <div class="card-glow"></div>
+                <div class="card-number">05</div>
+                <div class="project-tag">Predictive Analytics</div>
+                <h3><a href="https://github.com/NishantRajora/KNIME-Powered-Caffeination-Wellness-Predictor"
+                        target="_blank" rel="noopener noreferrer">KNIME-Powered Caffeination Wellness Predictor</a></h3>
+                <p>KNIME-based predictive workflow for behavioral segmentation, classification and regression modeling.
+                </p>
+                <div class="tech-stack">
+                    <span>KNIME</span><span>Random Forest</span><span>K-Means</span><span>EDA</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="5">
+                <div class="card-glow"></div>
+                <div class="card-number">06</div>
+                <div class="project-tag">Cybersecurity Analytics</div>
+                <h3><a href="https://github.com/NishantRajora/Analysing-OS-Kernel-Vulnerabilities-main" target="_blank"
+                        rel="noopener noreferrer">Analyzing OS Kernel Vulnerabilities</a></h3>
+                <p>Research-driven analysis of kernel vulnerabilities using CVE datasets, severity mapping and temporal
+                    security analytics.</p>
+                <div class="tech-stack">
+                    <span>Cybersecurity</span><span>Pandas</span><span>EDA</span><span>Research</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="project-card reveal" data-index="6">
+                <div class="card-glow"></div>
+                <div class="card-number">07</div>
+                <div class="project-tag">Demographics</div>
+                <h3><a href="https://github.com/NishantRajora/Societal-Trends-in-Aadhaar-Enrolment-and-Updates"
+                        target="_blank" rel="noopener noreferrer">Societal Trends in Identity Enrolment and Updates</a>
+                </h3>
+                <p>Demographic and time-series analysis exploring geographic concentration, age-group dynamics, and
+                    workload distribution in national identity enrolment systems.</p>
+                <div class="tech-stack">
+                    <span>Time-Series</span><span>Pandas</span><span>GeoViz</span><span>EDA</span>
+                </div>
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ SKILLS ═══════════════════════ -->
+    <section class="section" id="skills">
+        <div class="section-header reveal">
+            <span class="section-label">// TECH STACK</span>
+            <h2 class="section-title">Skills & Technologies</h2>
+        </div>
+
+        <div class="skills-categories reveal">
+
+            <div class="skill-group">
+                <div class="skill-group-label">Languages</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">Libraries & Frameworks</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Matplotlib</span>
+                    <span class="skill-tag">Seaborn</span>
+                    <span class="skill-tag">Scikit-Learn</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">Data Engineering</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Data Extraction</span>
+                    <span class="skill-tag">Transformation</span>
+                    <span class="skill-tag">ETL</span>
+                    <span class="skill-tag">Data Cleaning</span>
+                    <span class="skill-tag">Data Validation</span>
+                    <span class="skill-tag">EDA</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">Databases & Big Data</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Hadoop</span>
+                    <span class="skill-tag">Hive</span>
+                    <span class="skill-tag">Hue</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">BI & Visualization</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">Business Intelligence</span>
+                    <span class="skill-tag">KPI Design</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">Power BI</span>
+                    <span class="skill-tag">KNIME</span>
+                    <span class="skill-tag">MS Excel</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">AI & LLM Technologies</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">RAG</span>
+                    <span class="skill-tag">Prompt Engineering</span>
+                    <span class="skill-tag">Embeddings</span>
+                    <span class="skill-tag">Vector Databases</span>
+                    <span class="skill-tag">LangChain</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-group-label">Concepts</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">DSA</span>
+                    <span class="skill-tag">OOP</span>
+                    <span class="skill-tag">DBMS</span>
+                    <span class="skill-tag">Statistics</span>
+                    <span class="skill-tag">EDA</span>
+                    <span class="skill-tag">Feature Engineering</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Business Intelligence</span>
+                    <span class="skill-tag">Data Engineering</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+
+    <section class="section" id="contact">
+        <div class="section-header reveal">
+            <span class="section-label">// CONTACT</span>
+            <h2 class="section-title">Let's Connect</h2>
+        </div>
+
+        <div class="contact-wrapper reveal">
+            <div class="contact-card">
+                <p class="contact-intro">
+                    Open to internships, research collaborations, and full-time opportunities.
+                </p>
+
+                <div class="contact-items">
+
+                    <!-- Email -->
+                    <a class="contact-item" href="mailto:nishantrajora100@gmail.com">
+                        <div class="ci-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                        </div>
+                        <div class="ci-info">
+                            <span class="ci-label">Email</span>
+                            <span class="ci-value">nishantrajora100@gmail.com</span>
+                        </div>
+                        <div class="ci-arrow">→</div>
+                    </a>
+
+                    <!-- Location -->
+                    <div class="contact-item">
+                        <div class="ci-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div class="ci-info">
+                            <span class="ci-label">Location</span>
+                            <span class="ci-value">Gurugram, Haryana</span>
+                        </div>
+                    </div>
+
+                    <!-- Connect With Me -->
+                    <div class="contact-item">
+                        <div class="ci-info" style="width:100%;">
+                            <span class="ci-label">Connect With Me</span>
+
+                            <p style="margin-top:6px;color:var(--text-secondary);font-size:14px;">
+                                Explore my professional, coding, and social profiles.
+                            </p>
+
+                            <div style="display:flex;gap:15px;flex-wrap:wrap;margin-top:15px;align-items:center;">
+
+                                <!-- LinkedIn -->
+                                <a href="https://linkedin.com/in/nishant-rajora" target="_blank" title="LinkedIn">
+                                    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg"
+                                        height="30" width="40" alt="LinkedIn">
+                                </a>
+
+                                <!-- GitHub -->
+                                <a href="https://github.com/NishantRajora" target="_blank" title="GitHub">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg"
+                                        height="30" width="40" alt="GitHub">
+                                </a>
+
+                                <!-- LeetCode -->
+                                <a href="https://www.leetcode.com/nishant_rajora" target="_blank" title="LeetCode">
+                                    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/leet-code.svg"
+                                        height="30" width="40" alt="LeetCode">
+                                </a>
+
+                                <!-- HackerRank -->
+                                <a href="https://www.hackerrank.com/nishantrajora100" target="_blank"
+                                    title="HackerRank">
+                                    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg"
+                                        height="30" width="40" alt="HackerRank">
+                                </a>
+
+                                <!-- CodeChef -->
+                                <a href="https://www.codechef.com/users/nishant_rajora" target="_blank"
+                                    title="CodeChef">
+                                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.1.0/icons/codechef.svg"
+                                        height="30" width="40" alt="CodeChef">
+                                </a>
+
+                                <!-- Instagram -->
+                                <a href="https://instagram.com/nishant_rajora_" target="_blank" title="Instagram">
+                                    <img src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg"
+                                        height="30" width="40" alt="Instagram">
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <footer class="footer">
+        <div class="footer-line"></div>
+        <div class="footer-inner">
+            <span class="footer-logo"><span class="logo-bracket">[</span>NR<span class="logo-bracket">]</span></span>
+            <span class="footer-copy">© 2025 Nishant Rajora. All rights reserved.</span>
+            <span class="footer-tag">Built with precision.</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
