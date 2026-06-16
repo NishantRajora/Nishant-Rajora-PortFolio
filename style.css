@@ -796,38 +796,99 @@ body {
     height: 240px;
 }
 
+/* Radar Sweep Beam */
+.radar-rings::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: left center;
+    background: linear-gradient(90deg,
+            rgba(34, 211, 238, .9),
+            rgba(34, 211, 238, 0));
+    animation: sweep 6s linear infinite;
+    z-index: 1;
+}
+
 .ring {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(34, 211, 238, .15);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+/* Inner Ring */
 .r1 {
     width: 80px;
     height: 80px;
-    animation: spin-ring 12s linear infinite;
+    border: 1px solid rgba(34, 211, 238, .25);
 }
 
+/* Middle Ring */
 .r2 {
     width: 150px;
     height: 150px;
-    border-style: dashed;
-    animation: spin-ring 20s linear infinite reverse;
+    border: 1px dashed rgba(34, 211, 238, .25);
 }
 
+/* Outer Ring */
 .r3 {
     width: 220px;
     height: 220px;
+    border: 1px solid rgba(34, 211, 238, .15);
 }
 
-@keyframes spin-ring {
+/* Rotating Arc Segments */
+
+.r1::before,
+.r2::before,
+.r3::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+}
+
+.r1::before {
+    animation: radar-spin 4s linear infinite;
+}
+
+.r2::before {
+    animation: radar-spin 8s linear infinite reverse;
+}
+
+.r3::before {
+    animation: radar-spin 12s linear infinite;
+}
+
+@keyframes radar-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
     to {
-        transform: translate(-50%, -50%) rotate(360deg);
+        transform: rotate(360deg);
     }
 }
+
+@keyframes sweep {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Center Node */
 
 .radar-center {
     position: absolute;
@@ -838,43 +899,91 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 20px var(--accent);
+    z-index: 5;
+    animation: pulse-center 2s ease-in-out infinite;
+    box-shadow:
+        0 0 10px var(--accent),
+        0 0 25px var(--accent),
+        0 0 50px rgba(34, 211, 238, .5);
 }
+
+@keyframes pulse-center {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+}
+
+/* Domain Labels */
 
 .radar-dot {
     position: absolute;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10px;
     color: var(--accent);
     background: rgba(34, 211, 238, .1);
     border: 1px solid rgba(34, 211, 238, .3);
-    padding: 4px 10px;
+    padding: 4px 8px;
     border-radius: 20px;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    transition: all .3s ease;
+    z-index: 10;
 }
 
+.radar-dot:hover {
+    background: rgba(34, 211, 238, .2);
+    box-shadow: 0 0 15px rgba(34, 211, 238, .35);
+}
+
+/* AI */
 .rd1 {
-    top: 5%;
+    top: 8%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
 }
 
+/* RAG */
 .rd2 {
-    top: 50%;
-    right: 0%;
-    transform: translateY(-50%);
+    top: 30%;
+    left: 80%;
+    transform: translate(-50%, -50%);
 }
 
+/* Cyber */
 .rd3 {
-    bottom: 5%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 70%;
+    left: 80%;
+    transform: translate(-50%, -50%);
 }
 
+/* BI */
 .rd4 {
-    top: 50%;
-    left: 0%;
-    transform: translateY(-50%);
+    top: 92%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+/* Data */
+.rd5 {
+    top: 70%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+/* Systems */
+.rd6 {
+    top: 30%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+/* Label */
 
 .radar-label {
     font-family: var(--font-mono);
@@ -886,10 +995,12 @@ body {
 }
 
 /* ═══════════════════════ PROJECTS ═══════════════════════ */
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    perspective: 1400px;
 }
 
 .project-card {
@@ -899,28 +1010,87 @@ body {
     border-radius: 12px;
     padding: 32px;
     overflow: hidden;
-    transition: transform .4s var(--ease-expo), border-color .3s, box-shadow .4s;
     cursor: default;
+
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+
+    transition:
+        transform .7s cubic-bezier(.22, 1, .36, 1),
+        border-color .3s,
+        box-shadow .4s;
 }
+
+/* Gradient Overlay */
 
 .project-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(37, 99, 235, .04), transparent 60%);
+    background:
+        linear-gradient(135deg,
+            rgba(37, 99, 235, .06),
+            transparent 60%);
     opacity: 0;
     transition: opacity .4s;
+    pointer-events: none;
 }
 
-.project-card:hover {
-    transform: translateY(-8px);
+/* Animated Shine Effect */
+
+.project-card::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -180%;
+    width: 80%;
+    height: 300%;
+
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, .08),
+            transparent);
+
+    transform: rotate(25deg);
+    transition: left .9s ease;
+    pointer-events: none;
+}
+
+/* Odd Cards */
+
+.project-card:nth-child(odd):hover {
+    transform:
+        rotateY(12deg) translateZ(20px);
+
     border-color: rgba(37, 99, 235, .35);
-    box-shadow: 0 24px 60px rgba(2, 6, 23, .06), 0 0 0 1px rgba(37, 99, 235, .06);
+
+    box-shadow:
+        -25px 25px 60px rgba(0, 0, 0, .18),
+        0 0 0 1px rgba(37, 99, 235, .08);
+}
+
+/* Even Cards */
+
+.project-card:nth-child(even):hover {
+    transform:
+        rotateY(-12deg) translateZ(20px);
+
+    border-color: rgba(37, 99, 235, .35);
+
+    box-shadow:
+        25px 25px 60px rgba(0, 0, 0, .18),
+        0 0 0 1px rgba(37, 99, 235, .08);
 }
 
 .project-card:hover::before {
     opacity: 1;
 }
+
+.project-card:hover::after {
+    left: 220%;
+}
+
+/* Floating Glow */
 
 .card-glow {
     position: absolute;
@@ -936,8 +1106,23 @@ body {
 }
 
 .project-card:hover .card-glow {
-    opacity: .18;
+    opacity: .2;
 }
+
+/* Floating Content */
+
+.card-number,
+.project-tag,
+.project-card h3,
+.project-card p,
+.tech-stack,
+.card-arrow {
+    position: relative;
+    z-index: 2;
+    transform: translateZ(25px);
+}
+
+/* Card Number */
 
 .card-number {
     font-family: var(--font-mono);
@@ -946,6 +1131,8 @@ body {
     letter-spacing: 2px;
     margin-bottom: 16px;
 }
+
+/* Project Tag */
 
 .project-tag {
     display: inline-block;
@@ -960,6 +1147,8 @@ body {
     text-transform: uppercase;
 }
 
+/* Title */
+
 .project-card h3 {
     font-family: var(--font-display);
     font-size: 22px;
@@ -971,12 +1160,14 @@ body {
 .project-card h3 a {
     color: var(--text);
     text-decoration: none;
-    transition: color .2s;
+    transition: color .3s;
 }
 
 .project-card h3 a:hover {
     color: var(--accent);
 }
+
+/* Description */
 
 .project-card p {
     color: var(--muted);
@@ -984,6 +1175,8 @@ body {
     line-height: 1.75;
     margin-bottom: 22px;
 }
+
+/* Tech Stack */
 
 .tech-stack {
     display: flex;
@@ -1001,7 +1194,18 @@ body {
     font-size: 11px;
     color: #94a3b8;
     letter-spacing: .5px;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease;
 }
+
+.tech-stack span:hover {
+    transform: translateY(-2px);
+    border-color: rgba(37, 99, 235, .35);
+}
+
+/* Arrow */
 
 .card-arrow {
     color: var(--muted);
@@ -1009,7 +1213,10 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color .3s, transform .3s var(--ease-back);
+
+    transition:
+        color .3s,
+        transform .3s cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .card-arrow:focus-visible {
@@ -1020,7 +1227,8 @@ body {
 
 .project-card:hover .card-arrow {
     color: var(--accent);
-    transform: translateX(6px);
+    transform:
+        translateZ(35px) translateX(8px);
 }
 
 /* ═══════════════════════ SKILLS ═══════════════════════ */
