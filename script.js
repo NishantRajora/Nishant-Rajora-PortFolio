@@ -4,6 +4,12 @@
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+(function orderPortfolioSections() {
+  const about = document.getElementById('about');
+  const projects = document.getElementById('projects');
+  if (about && projects) about.parentNode.insertBefore(projects, about);
+})();
+
 /* ── FAINT BLUEPRINT GRID ── */
 (function initGridCanvas() {
   const canvas = document.getElementById('grid-canvas');
