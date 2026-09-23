@@ -440,6 +440,31 @@ a {
     color: var(--lime);
 }
 
+.profile-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    animation: profile-float 5s ease-in-out infinite;
+}
+
+.profile-visual img {
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
+    object-fit: cover;
+    border: 2px solid var(--lime);
+    border-radius: 50%;
+    filter: saturate(.9) contrast(1.05);
+}
+
+.profile-label {
+    color: rgba(255, 255, 255, .64);
+    font: 10px var(--mono);
+    letter-spacing: .08em;
+}
+
 .datasheet-stats {
     position: relative;
     padding: 8px 0 30px;
@@ -457,8 +482,10 @@ a {
 .datasheet-stats img {
     display: block;
     width: 100%;
-    min-height: 185px;
-    object-fit: cover;
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
+    object-position: center;
     border: 1px solid var(--line-light);
     filter: saturate(.8) contrast(1.05);
 }
@@ -902,6 +929,18 @@ a {
     }
 }
 
+@keyframes profile-float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateY(-6px) rotate(1deg);
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -987,6 +1026,12 @@ a {
 
     .datasheet {
         box-shadow: 10px 10px 0 var(--lime);
+    }
+
+    .profile-visual img {
+        width: 68px;
+        height: 68px;
+        flex-basis: 68px;
     }
 
     .section {
