@@ -44,9 +44,15 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 /* ── NAVBAR SCROLL STATE ── */
 (function initNavbar() {
   const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
+  function updateNavbar() {
     nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+    nav.style.setProperty('--scroll-progress', `${progress}%`);
+  }
+
+  updateNavbar();
+  window.addEventListener('scroll', updateNavbar, { passive: true });
 })();
 
 
@@ -85,6 +91,14 @@ function closeMobileMenu() {
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   els.forEach(el => observer.observe(el));
+  requestAnimationFrame(() => {
+    els.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        el.classList.add('visible');
+        observer.unobserve(el);
+      }
+    });
+  });
 })();
 
 
