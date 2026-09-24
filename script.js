@@ -45,25 +45,25 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     mouse.targetY = -9999;
   }, { passive: true });
 
-  // Outlined equilateral triangle drawing utility
-  function drawTriangle(context, x, y, size, angle, color, lineWidth, opacity = 1) {
+  function drawParticle(context, particle) {
+    const glow = 0.75 + Math.sin(particle.pulsePhase) * 0.25;
     context.save();
-    context.translate(x, y);
-    context.rotate(angle);
+    context.translate(particle.x, particle.y);
+    context.rotate(particle.angle);
+    context.globalAlpha = particle.opacity * glow;
+    context.strokeStyle = particle.color;
+    context.lineWidth = particle.lineWidth;
     context.beginPath();
-    const r = size;
-    for (let i = 0; i < 3; i++) {
-      const a = (i * 2 * Math.PI) / 3 - Math.PI / 2;
-      const px = r * Math.cos(a);
-      const py = r * Math.sin(a);
-      if (i === 0) context.moveTo(px, py);
-      else context.lineTo(px, py);
+    for (let side = 0; side < 3; side++) {
+      const angle = (side * Math.PI * 2) / 3 - Math.PI / 2;
+      const pointX = Math.cos(angle) * particle.size;
+      const pointY = Math.sin(angle) * particle.size;
+      if (side === 0) context.moveTo(pointX, pointY);
+      else context.lineTo(pointX, pointY);
     }
     context.closePath();
-    context.globalAlpha = opacity;
-    context.strokeStyle = color;
-    context.lineWidth = lineWidth || 1.1;
     context.stroke();
+    context.globalAlpha = 1;
     context.restore();
   }
 
@@ -79,8 +79,11 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     // Cerebrum upper contour: rounded dome with central longitudinal fissure depression
     if (ny < -0.85 || ny > 0.95 || absX > 0.96) return false;
 
-    // Central fissure indent between hemispheres at top
-    if (absX < 0.08 && ny < -0.4) return false;
+    // Keep a visible central fissure between the two hemispheres.
+    if (absX < 0.11 && ny < 0.48) return false;
+
+    // Narrow brainstem beneath the two hemispheres.
+    if (absX < 0.13 && ny > 0.58) return true;
 
     // Left and right main lobes oval
     const lobeDist = Math.pow((absX - 0.46) / 0.52, 2) + Math.pow((ny + 0.1) / 0.75, 2);
@@ -105,52 +108,28 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     brainParticles = [];
     ambientParticles = [];
 
-    // Constellation placement: Right side on desktop, centered on mobile
+    // Floating triangle field distributed across the entire viewport.
     const isDesktop = W >= 1024;
-    const centerX = isDesktop ? W * 0.72 : W * 0.5;
-    const centerY = isDesktop ? Math.min(H * 0.46, 420) : Math.min(H * 0.42, 360);
-    const scaleX = isDesktop ? Math.min(W * 0.22, 260) : Math.min(W * 0.38, 170);
-    const scaleY = scaleX * 0.85;
-
-    // 1. Brain constellation particles
-    const brainCount = isDesktop ? 460 : 240;
-    let attempts = 0;
-    while (brainParticles.length < brainCount && attempts < 8000) {
-      attempts++;
-      const nx = (Math.random() * 2 - 1) * 0.96;
-      const ny = (Math.random() * 2 - 1) * 0.92;
-
-      if (isInsideBrainSilhouette(nx, ny)) {
-        const bx = centerX + nx * scaleX;
-        const by = centerY + ny * scaleY;
-        const color = chromaticColors[Math.floor(Math.random() * chromaticColors.length)];
-        const size = Math.random() * 2.6 + 1.8; // 1.8px to 4.4px
-        const angle = Math.random() * Math.PI * 2;
-        const rotSpeed = (Math.random() - 0.5) * 0.015;
-        const pulsePhase = Math.random() * Math.PI * 2;
-        const pulseSpeed = 0.0015 + Math.random() * 0.002;
-        const opacity = 0.4 + Math.random() * 0.55;
-
-        brainParticles.push({
-          origX: bx,
-          origY: by,
-          x: bx,
-          y: by,
-          vx: 0,
-          vy: 0,
-          size,
-          angle,
-          rotSpeed,
-          color,
-          pulsePhase,
-          pulseSpeed,
-          opacity
-        });
-      }
+    const floatingCount = isDesktop ? 640 : 360;
+    for (let i = 0; i < floatingCount; i++) {
+      brainParticles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.32,
+        vy: (Math.random() - 0.5) * 0.22,
+        size: Math.random() * 2.2 + 1.1,
+        angle: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.018,
+        lineWidth: Math.random() * 0.55 + 0.45,
+        color: chromaticColors[Math.floor(Math.random() * chromaticColors.length)],
+        pulsePhase: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.004 + Math.random() * 0.008,
+        opacity: 0.2 + Math.random() * 0.5
+      });
     }
 
     // 2. Ambient drifting particles across the full void
-    const ambientCount = Math.floor((W * H) / 16000);
+    const ambientCount = Math.floor((W * H) / 28000);
     for (let i = 0; i < ambientCount; i++) {
       ambientParticles.push({
         x: Math.random() * W,
@@ -160,6 +139,8 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
         size: Math.random() * 2.2 + 1.5,
         angle: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * 0.01,
+        pulsePhase: Math.random() * Math.PI * 2,
+        pulseSpeed: 0.006 + Math.random() * 0.01,
         color: chromaticColors[Math.floor(Math.random() * chromaticColors.length)],
         opacity: 0.15 + Math.random() * 0.35
       });
@@ -192,7 +173,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
     mouse.y += (mouse.targetY - mouse.y) * 0.1;
 
     // ── DRAW BRAIN SYNAPTIC CONNECTIONS ──
-    const maxLinkDist = 38;
+    const maxLinkDist = 34;
     ctx.lineWidth = 0.6;
     for (let i = 0; i < brainParticles.length; i++) {
       const p1 = brainParticles[i];
@@ -213,42 +194,34 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
       }
     }
 
-    // ── DRAW & UPDATE BRAIN PARTICLES ──
+    // ── DRAW & UPDATE FLOATING TRIANGLES ──
     for (let i = 0; i < brainParticles.length; i++) {
       const p = brainParticles[i];
 
       if (!prefersReducedMotion) {
+        p.x += p.vx;
+        p.y += p.vy;
         p.angle += p.rotSpeed;
         p.pulsePhase += p.pulseSpeed;
 
-        // Subtle organic breathing oscillation
-        const breathX = Math.sin(p.pulsePhase) * 1.5;
-        const breathY = Math.cos(p.pulsePhase * 0.8) * 1.5;
-
-        // Mouse repulsion
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < mouse.radius && dist > 0) {
-          const force = (1 - dist / mouse.radius) * 18;
-          p.vx += (dx / dist) * force * 0.15;
-          p.vy += (dy / dist) * force * 0.15;
+          const force = (1 - dist / mouse.radius) * 0.045;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
         }
 
-        // Spring return to original anatomical position
-        const targetX = p.origX + breathX;
-        const targetY = p.origY + breathY;
-        p.vx += (targetX - p.x) * 0.05;
-        p.vy += (targetY - p.y) * 0.05;
-        p.vx *= 0.84;
-        p.vy *= 0.84;
-
-        p.x += p.vx;
-        p.y += p.vy;
+        p.pulsePhase += p.pulseSpeed;
+        if (p.x < -20) p.x = W + 20;
+        if (p.x > W + 20) p.x = -20;
+        if (p.y < -20) p.y = H + 20;
+        if (p.y > H + 20) p.y = -20;
       }
 
-      drawTriangle(ctx, p.x, p.y, p.size, p.angle, p.color, 1.1, p.opacity);
+      drawParticle(ctx, p);
     }
 
     // ── DRAW & UPDATE AMBIENT FIELD PARTICLES ──
@@ -257,8 +230,18 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
       if (!prefersReducedMotion) {
         p.angle += p.rotSpeed;
+        p.pulsePhase += p.pulseSpeed;
         p.x += p.vx;
         p.y += p.vy;
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius && dist > 0) {
+          const force = (1 - dist / mouse.radius) * 1.4;
+          p.x += (dx / dist) * force;
+          p.y += (dy / dist) * force;
+        }
 
         // Wrap around viewport edges
         if (p.x < -10) p.x = W + 10;
@@ -267,7 +250,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
         if (p.y > H + 10) p.y = -10;
       }
 
-      drawTriangle(ctx, p.x, p.y, p.size, p.angle, p.color, 0.9, p.opacity);
+      drawParticle(ctx, p);
     }
 
     if (!prefersReducedMotion) {
@@ -332,6 +315,10 @@ window.closeMobileMenu = closeMobileMenu;
 (function initReveal() {
   const els = document.querySelectorAll('.reveal');
   if (!els.length) return;
+
+  document.querySelectorAll('.projects-grid .project-card').forEach((card, index) => {
+    card.style.setProperty('--reveal-delay', `${Math.min(index * 70, 420)}ms`);
+  });
 
   if (prefersReducedMotion) {
     els.forEach(el => el.classList.add('visible'));
@@ -423,4 +410,17 @@ window.closeMobileMenu = closeMobileMenu;
       }
     });
   }, { passive: true });
+})();
+
+/* ── PROJECT POINTER LIGHT ── */
+(function initProjectPointerLight() {
+  if (prefersReducedMotion || !window.matchMedia('(pointer: fine)').matches) return;
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty('--pointer-x', `${event.clientX - bounds.left}px`);
+      card.style.setProperty('--pointer-y', `${event.clientY - bounds.top}px`);
+    }, { passive: true });
+  });
 })();
