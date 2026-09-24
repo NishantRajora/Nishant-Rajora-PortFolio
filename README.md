@@ -15,7 +15,7 @@ The portfolio presents Nishant's work, technical skills, research interests, and
 - Skills and technologies grouped by category
 - Contact details and links to professional and coding profiles
 - Responsive navigation with a mobile menu
-- Scroll reveal animations, animated statistics, and a canvas grid background
+- Scroll reveal animations, animated statistics, and an interactive particle constellation canvas background
 
 ## Technologies Used
 

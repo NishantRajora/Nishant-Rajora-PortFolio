@@ -9,19 +9,29 @@
         content="Nishant Rajora — Data Science undergraduate building AI systems, predictive analytics, business intelligence and engineering tools." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
+    <!-- Signature Constellation & Particle Field Canvas -->
     <canvas id="grid-canvas" aria-hidden="true"></canvas>
 
     <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
     <nav class="navbar" id="navbar">
-        <a class="nav-logo" href="#hero">Nishant Rajora</a>
+        <a class="nav-logo" href="#hero">
+            <svg class="logo-mark" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <polygon points="12 2, 22 20, 2 20" fill="url(#nav-logo-grad)" />
+                <defs>
+                    <linearGradient id="nav-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#8052ff" />
+                        <stop offset="100%" stop-color="#15846e" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span>Nishant Rajora</span>
+        </a>
 
         <ul class="nav-links">
             <li><a href="#projects">Projects</a></li>
@@ -30,9 +40,12 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
 
-        <div class="nav-status">
-            <span class="status-dot" aria-hidden="true"></span>
-            Available for opportunities
+        <div class="nav-actions">
+            <div class="nav-status">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>Available for opportunities</span>
+            </div>
+            <a href="#contact" class="nav-cta">Get in Touch</a>
         </div>
 
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"
@@ -90,23 +103,33 @@
 
             <div class="hero-right reveal reveal-delay">
                 <div class="profile-card">
-                    <div class="profile-card-topline">
-                        <span>01 / PROFILE</span>
-                        <span>AI ENGINEER</span>
-                    </div>
+                    <div class="profile-role">AI &amp; Data Engineer</div>
                     <div class="profile-visual">
                         <img src="profile.png" alt="Portrait of Nishant Rajora" loading="eager" />
-                        <span class="profile-label">NISHANT / AI ENGINEER</span>
                     </div>
-                    <p class="profile-card-caption">Data science, machine learning &amp; systems that ship.</p>
+                    <div class="profile-info">
+                        <h3 class="profile-name">Nishant Rajora</h3>
+                        <p class="profile-card-caption">Data science, machine learning &amp; systems that ship.</p>
+                        <div class="profile-links">
+                            <a href="https://github.com/NishantRajora" target="_blank" rel="noopener noreferrer"
+                                aria-label="GitHub">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+                                </svg>
+                            </a>
+                            <a href="https://linkedin.com/in/nishant-rajora" target="_blank" rel="noopener noreferrer"
+                                aria-label="LinkedIn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="datasheet">
-                    <div class="datasheet-corner dc-tl"></div>
-                    <div class="datasheet-corner dc-tr"></div>
-                    <div class="datasheet-corner dc-bl"></div>
-                    <div class="datasheet-corner dc-br"></div>
-
                     <div class="datasheet-head">
                         <span class="datasheet-id">GITHUB / ACTIVITY</span>
                         <span class="datasheet-rev">live</span>
@@ -123,64 +146,6 @@
         <div class="hero-scroll-hint">
             <span>Scroll to explore</span>
             <div class="scroll-line"></div>
-        </div>
-    </section>
-
-    <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
-    <section class="section" id="about">
-        <div class="section-header reveal">
-            <span class="section-index">02</span>
-            <h2 class="section-title">About</h2>
-        </div>
-
-        <div class="about-grid reveal">
-            <div class="about-text">
-                <p>
-                    I'm a <strong>Data Science undergraduate</strong> building systems that sit at the
-                    intersection of machine learning, analytics and software engineering —
-                    not just models that score well in a notebook, but tools that hold up
-                    once they're deployed.
-                </p>
-                <p>
-                    That's taken me through <span class="hl">AI forecasting systems</span>, explainable
-                    machine learning, cybersecurity analytics, business intelligence
-                    dashboards, and a handful of local engineering tools built because I
-                    needed them myself.
-                </p>
-
-                <ul class="fact-list">
-                    <li><span>Location</span>Gurugram, Haryana</li>
-                    <li><span>Degree</span>B.Tech CSE — Data Science specialization</li>
-                    <li><span>Approach</span>Research-driven, ships working software</li>
-                    <li><span>Looking for</span>Internships &amp; research collaborations</li>
-                </ul>
-            </div>
-
-            <div class="about-visual">
-                <p class="domains-label">Domains I work across</p>
-                <div class="domains-grid">
-                    <div class="domain-tile">
-                        <span class="domain-mark">01</span>
-                        <h3>Machine&nbsp;Learning</h3>
-                        <p>Forecasting, classification, explainability</p>
-                    </div>
-                    <div class="domain-tile">
-                        <span class="domain-mark">02</span>
-                        <h3>Generative&nbsp;AI</h3>
-                        <p>RAG systems, retrieval, local LLMs</p>
-                    </div>
-                    <div class="domain-tile">
-                        <span class="domain-mark">03</span>
-                        <h3>Business&nbsp;Intelligence</h3>
-                        <p>Dashboards, KPIs, executive reporting</p>
-                    </div>
-                    <div class="domain-tile">
-                        <span class="domain-mark">04</span>
-                        <h3>Cybersecurity</h3>
-                        <p>CVE analysis, vulnerability research</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -325,6 +290,64 @@
                 </div>
             </article>
 
+        </div>
+    </section>
+
+    <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+    <section class="section" id="about">
+        <div class="section-header reveal">
+            <span class="section-index">02</span>
+            <h2 class="section-title">About</h2>
+        </div>
+
+        <div class="about-grid reveal">
+            <div class="about-text">
+                <p>
+                    I'm a <strong>Data Science undergraduate</strong> building systems that sit at the
+                    intersection of machine learning, analytics and software engineering —
+                    not just models that score well in a notebook, but tools that hold up
+                    once they're deployed.
+                </p>
+                <p>
+                    That's taken me through <span class="hl">AI forecasting systems</span>, explainable
+                    machine learning, cybersecurity analytics, business intelligence
+                    dashboards, and a handful of local engineering tools built because I
+                    needed them myself.
+                </p>
+
+                <ul class="fact-list">
+                    <li><span>Location</span>Gurugram, Haryana</li>
+                    <li><span>Degree</span>B.Tech CSE — Data Science specialization</li>
+                    <li><span>Approach</span>Research-driven, ships working software</li>
+                    <li><span>Looking for</span>Internships &amp; research collaborations</li>
+                </ul>
+            </div>
+
+            <div class="about-visual">
+                <p class="domains-label">Domains I work across</p>
+                <div class="domains-grid">
+                    <div class="domain-tile">
+                        <span class="domain-mark">01</span>
+                        <h3>Machine&nbsp;Learning</h3>
+                        <p>Forecasting, classification, explainability</p>
+                    </div>
+                    <div class="domain-tile">
+                        <span class="domain-mark">02</span>
+                        <h3>Generative&nbsp;AI</h3>
+                        <p>RAG systems, retrieval, local LLMs</p>
+                    </div>
+                    <div class="domain-tile">
+                        <span class="domain-mark">03</span>
+                        <h3>Business&nbsp;Intelligence</h3>
+                        <p>Dashboards, KPIs, executive reporting</p>
+                    </div>
+                    <div class="domain-tile">
+                        <span class="domain-mark">04</span>
+                        <h3>Cybersecurity</h3>
+                        <p>CVE analysis, vulnerability research</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
